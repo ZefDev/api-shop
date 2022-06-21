@@ -1,10 +1,14 @@
 <?php
 
+namespace App\Models\Products;
+
+use \PDO;
+use \PDOException;
 
 abstract class Product
 {
     protected $conn;
-    private $table_name = "products";
+    private $table_name = "Products";
 
     private $sku;
     private $name;
@@ -33,7 +37,7 @@ abstract class Product
     public static function deleteByIds($conn,$ids)
     {
         $placeholder = str_repeat('?,', count($ids) - 1) . '?';
-        return $conn->prepare("DELETE FROM products WHERE sku in ($placeholder)")->execute($ids);
+        return $conn->prepare("DELETE FROM Products WHERE sku in ($placeholder)")->execute($ids);
     }
 
     abstract public function all();

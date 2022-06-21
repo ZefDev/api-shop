@@ -1,17 +1,23 @@
 <?php
 
+namespace App\Models\Products;
+
+use \PDO;
+use \PDOException;
+
 class Dvd extends Product
 {
     private $table_name = "dvd";
     private $size;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         parent::__construct($db);
     }
 
     public function all()
     {
-        $sql = "SELECT * FROM products p
+        $sql = "SELECT * FROM Products p
         INNER JOIN dvd d ON d.sku = p.sku";
 
         $statement = $this->conn->query($sql);

@@ -1,9 +1,12 @@
 <?php
-require_once(ROOT . '/app/models/products/Product.php');
-require_once(ROOT . '/app/models/products/Book.php');
-require_once(ROOT . '/app/models/products/Dvd.php');
-require_once(ROOT . '/app/models/products/Furniture.php');
-require_once(ROOT . '/config/Db.php');
+
+namespace App\Repositories;
+
+use Config\Database;
+use App\Models\Products\Product;
+use App\Models\Products\Book;
+use App\Models\Products\Dvd;
+use App\Models\Products\Furniture;
 
 class ProductRepository
 {
@@ -17,17 +20,19 @@ class ProductRepository
 
     public function insert($post)
     {
-        $productType = ucfirst(mb_strtolower($post['productType']));
+        $productType = "App\\Models\\Products\\".ucfirst(mb_strtolower($post['productType']));
         $product = new $productType($this->db);
         $product->setData($post);
         $product->save();
     }
 
-    public function deleteByIds($ids){
+    public function deleteByIds($ids)
+    {
         Product::deleteByIds($this->db,$ids);
     }
 
-    public function findAll(){
+    public function findAll()
+    {
         $products[] = new Book($this->db);
         $products[] = new Dvd($this->db);
         $products[] = new Furniture($this->db);

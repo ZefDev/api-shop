@@ -1,6 +1,9 @@
 <?php
-require_once(ROOT . '/app/repositories/ProductRepository.php');
-require_once(ROOT . '/app/models/products/Product.php');
+
+namespace App\Controllers;
+
+use App\Models\Products\Product;
+use App\Repositories\ProductRepository;
 
 class ProductController
 {
@@ -14,7 +17,6 @@ class ProductController
     public function actionIndex()
     {
         echo json_encode($this->productRepository->findAll());
-        return ;
     }
 
     public function actionCreate()

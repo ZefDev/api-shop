@@ -1,10 +1,13 @@
 <?php
 
+namespace App\Models\Products;
+
+use \PDO;
+use \PDOException;
+
 class Furniture extends Product
 {
-
     private $table_name = "furniture";
-
 
     private $height;
     private $width;
@@ -32,7 +35,7 @@ class Furniture extends Product
 
     public function all()
     {
-        $sql = "SELECT * FROM products p
+        $sql = "SELECT * FROM Products p
         INNER JOIN furniture f ON f.sku = p.sku";
 
         $statement = $this->conn->query($sql);

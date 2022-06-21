@@ -1,13 +1,14 @@
 <?php
 
+namespace Components;
+
 class Router
 {
-
     private $routes;
 
     public function __construct()
     {
-        $routesPath = ROOT.'/routes/api.php';
+        $routesPath = ROOT.'/Routes/api.php';
         $this->routes = include($routesPath);
     }
 
@@ -20,15 +21,8 @@ class Router
                 $segments = explode('/', $path);
 
                 $controllerName = array_shift($segments).'Controller';
-                $controllerName = ucfirst($controllerName);
-
+                $controllerName = "App\\Controllers\\". ucfirst($controllerName);
                 $actionName = 'action'.ucfirst(array_shift($segments));
-
-                $controllerFile = ROOT . '/app/controllers/' . $controllerName . '.php';
-
-                if (file_exists($controllerFile)){
-                    include_once ($controllerFile);
-                }
 
                 $controllerObject = new $controllerName;
                 $result = $controllerObject->$actionName();
